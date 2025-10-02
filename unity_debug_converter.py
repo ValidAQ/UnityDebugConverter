@@ -199,14 +199,14 @@ class UnityDebugConverter:
                     # Copy DLLs with original names
                     dest_path = self.game_path / filename
 
-                if self.dry_run:
+                if self.dry_run.value:
                     logger.info("[DRY RUN] Would copy: %s -> %s", filename, dest_path.name)
                 else:
                     shutil.copy2(source_path, dest_path)
                     logger.info("Copied: %s -> %s", filename, dest_path.name)
 
         except (OSError, shutil.Error):
-            if not self.dry_run:
+            if not self.dry_run.value:
                 logger.exception("Error copying debug files")
                 return False
         return True
@@ -222,7 +222,7 @@ class UnityDebugConverter:
         ]
 
         try:
-            if self.dry_run:
+            if self.dry_run.value:
                 logger.info("[DRY RUN] Would create boot.config at: %s", boot_config_path)
                 logger.info("[DRY RUN] Content: %s", ", ".join(config_content))
             else:
@@ -230,14 +230,14 @@ class UnityDebugConverter:
                     f.writelines(config_content)
                 logger.info("Created boot.config at: %s", boot_config_path)
         except OSError:
-            if not self.dry_run:
+            if not self.dry_run.value:
                 logger.exception("Error creating boot.config")
                 return False
         return True
 
     def convert_to_debug(self) -> bool:
         """Convert the game to debug build."""
-        if self.dry_run:
+        if self.dry_run.value:
             logger.info("Starting debug conversion preview (DRY RUN MODE)...")
         else:
             logger.info("Starting debug conversion...")
