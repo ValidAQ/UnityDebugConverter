@@ -11,21 +11,27 @@ Intended to help with modding.
 
 ## Usage examples
 
+### Using Unity Hub path and version
 ```bash
-# Using Unity Hub path and version
 python unity_debug_converter.py --unity_hub_path "C:/Program Files/Unity/Hub/Editor" --unity_version "2022.3.32f1" --game_path "C:/Steam/steamapps/common/MyGame"
+```
 
-# Using direct Unity installation path
+### Using direct Unity installation path
+```bash
 python unity_debug_converter.py --unity_path "C:/Program Files/Unity/Hub/Editor/2022.3.32f1" --game_path "C:/Steam/steamapps/common/MyGame"
+```
 
-# Dry run (recommended for first-time use)
+### Dry run (simulate conversion, recommended for first-time use)
+```bash
 python unity_debug_converter.py --unity_hub_path "C:/Program Files/Unity/Hub/Editor" --unity_version "2022.3.45f1" --game_path "C:/Games/MyUnityGame" --dry-run
+```
 
-# Dry run with direct Unity path
+### Dry run with direct Unity path
+```bash
 python unity_debug_converter.py --unity_path "C:/Program Files/Unity/Hub/Editor/2022.3.45f1" --game_path "C:/Games/MyUnityGame" --dry-run
 ```
 
-### Command Line Arguments
+### Command line arguments
 
 - `--unity_path`: Direct path to Unity installation (e.g., `C:/Program Files/Unity/Hub/Editor/2022.3.32f1`)
 - `--unity_hub_path`: Path to Unity Hub Editor directory (e.g., `C:/Program Files/Unity/Hub/Editor`)
@@ -37,21 +43,21 @@ python unity_debug_converter.py --unity_path "C:/Program Files/Unity/Hub/Editor/
 
 You must provide either `--unity_path` OR both `--unity_hub_path` and `--unity_version`. You cannot use both options together.
 
-## How It Works
+## How it works
 
 The script automates the conversion process through these steps:
 
-1. Path Validation: Verifies that Unity Hub installation and game paths exist
-2. Game Detection: Automatically finds the game executable and data directory (with interactive selection if multiple executables found)
-3. File Detection: Locates debug build files in Unity installation variations:
-   - `WindowsPlayer.exe` → will be renamed to `GameName.exe`
-   - `UnityPlayer.dll` → copied as-is
-   - `WinPixEventRuntime.dll` → copied if present (some Unity versions)
-   - `player_win.exe` → for older Unity versions
-4. File Copying: Copies debug files to game directory with proper naming (overwrites existing files)
-5. Configuration: Creates `boot.config` file with script debugging enabled
+1. Verifies that Unity Hub installation and game paths exist
+2. Automatically finds the game executable and data directory (with interactive selection if multiple executables found)
+3. Locates debug build files in Unity installation variations:
+   - `WindowsPlayer.exe` -> will be renamed to `GameName.exe`
+   - `UnityPlayer.dll` -> copied as-is
+   - `WinPixEventRuntime.dll` -> copied if present (some Unity versions)
+   - `player_win.exe` -> for older Unity versions, used instead of `WindowsPlayer.exe`
+4. Copies debug files to game directory with proper naming (overwrites existing files)
+5. Creates `boot.config` file with script debugging enabled
 
-## File Locations
+## File locations
 
 The script searches for debug files in these Unity variations (in order):
 1. `{unity_path}/Editor/Data/PlaybackEngines/windowsstandalonesupport/Variations/win64_player_development_mono/`
@@ -63,14 +69,14 @@ Where `{unity_path}` is:
 
 If the game requires a different Unity variation, add the corresponding variation name to `variations` list in the script.
 
-### Debug Configuration
+### Debug configuration
 
 The script creates a `boot.config` file in the `GameName_Data` directory with these settings:
 ```
 player-connection-debug=1
 ```
 
-## Getting Unity Version
+## Getting Unity version
 
 To find your game's Unity version:
 1. Right-click the game executable in Windows Explorer
