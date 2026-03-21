@@ -11,6 +11,11 @@ Intended to help with modding.
 
 ## Usage examples
 
+### Using uv project runner
+```bash
+uv run unity-debug-converter -- --unity_path "C:/Program Files/Unity/Hub/Editor/2022.3.45f1" --game_path "C:/Games/MyUnityGame" --dry-run
+```
+
 ### Using Unity Hub path and version
 ```bash
 python unity_debug_converter.py --unity_hub_path "C:/Program Files/Unity/Hub/Editor" --unity_version "2022.3.32f1" --game_path "C:/Steam/steamapps/common/MyGame"

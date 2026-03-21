@@ -362,13 +362,7 @@ def main():
 
 
 def log_results(*, success: bool, is_dry_run: bool):
-    """
-    Log the conversion results.
-
-    :param success: Whether the conversion was successful.
-    :param is_dry_run: Whether this was a dry run.
-    """
-
+    """Log the conversion results."""
     logger.info("=" * 40)
     if success:
         if is_dry_run:

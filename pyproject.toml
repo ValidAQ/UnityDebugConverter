@@ -1,0 +1,18 @@
+[project]
+name = "unity-debug-converter"
+version = "0.1.0"
+description = "Convert a Unity game release build into a debug build and enable script debugging."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.scripts]
+unity-debug-converter = "unity_debug_converter:main"
+
+[build-system]
+requires = ["uv-build>=0.10.0"]
+build-backend = "uv_build"
